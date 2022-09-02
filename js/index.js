@@ -15,6 +15,32 @@ const setMenu = async () => {
     menu.appendChild(li);
   }
 };
+const newsContainer = async () => {
+  const newsCard = document.getElementById('news-cards');
+  const div = document.createElement('div');
+  div.innerHTML = `
+  <div class="card card-side bg-base-100 shadow-xl bg-white">
+        <div>
+          <figure class="p-3"><img src="https://placeimg.com/200/280/arch" class="rounded-2xl" alt="Movie"></figure>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title text-black font-bold text-3xl	">The best fashion influencers to follow for sartorial
+            inspiration
+          </h2>
+          <p>From our favourite UK influencers to the best missives from Milan and the coolest New Yorkers, read on some
+            of the
+            best fashion blogs out there, and for even more inspiration, do head to our separate black fashion
+            influencer
+            roundup.</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary">Watch</button>
+          </div>
+        </div>
+      </div>
+  `;
+  newsCard.appendChild(div);
+}
+newsContainer();
 
 setMenu();
 
