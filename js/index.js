@@ -15,33 +15,52 @@ const setMenu = async () => {
     menu.appendChild(li);
   }
 };
-const newsContainer = async () => {
-  const newsCard = document.getElementById('news-cards');
-  const div = document.createElement('div');
-  div.innerHTML = `
-  <div class="card card-side bg-base-100 shadow-xl bg-white">
+const loadAllNews = (category_id) => {
+  fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`)
+    .then(res => res.json())
+    .then(data => displayNews(data.data));
+}
+const displayNews = data => {
+  const newsCards = document.getElementById('news-cards');
+  data.forEach(news => {
+    console.log(news)
+    const newsDiv = document.createElement('div');
+    newsDiv.classList.add('card');
+    newsDiv.innerHTML = `
+    <div class="card card-side bg-base-100 shadow-xl bg-white mb-4">
         <div>
-          <figure class="p-3"><img src="https://placeimg.com/200/280/arch" class="rounded-2xl" alt="Movie"></figure>
+          <figure><img src="${news.image_url}" class="rounded-2xl p-3" alt="Movie"></figure>
         </div>
         <div class="card-body">
-          <h2 class="card-title text-black font-bold text-3xl	">The best fashion influencers to follow for sartorial
-            inspiration
-          </h2>
-          <p>From our favourite UK influencers to the best missives from Milan and the coolest New Yorkers, read on some
-            of the
-            best fashion blogs out there, and for even more inspiration, do head to our separate black fashion
-            influencer
-            roundup.</p>
-          <div class="card-actions justify-end">
-            <button class="btn btn-primary">Watch</button>
+          <h1 class="card-title text-black font-bold text-3xl">${news.title}</h1>
+          <p>${news.details}</p>
+          <div class="grid gap-4 grid-cols-3 items-center">
+            <div>
+              <label tabindex="0" class="avatar">
+                <div class="w-10 rounded-full mr-2">
+                  <img src="${news.author.img}" />
+                </div>
+                <h3 class="card-title text-black font-medium text-xl">${news.author.name}</h3>
+              </label>
+            </div>
+            <div>
+              <p class="text-black font-medium">${news.total_view}</p>
+            </div>
+            <div class="card-actions justify-end">
+              <button class="btn btn-primary">Detail</button>
+            </div>
           </div>
         </div>
       </div>
-  `;
-  newsCard.appendChild(div);
+    `;
+    newsCards.appendChild(newsDiv);
+  })
 }
-newsContainer();
 
+
+
+
+loadAllNews('01');
 setMenu();
 
 // loadNews();
